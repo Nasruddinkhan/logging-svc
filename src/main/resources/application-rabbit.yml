@@ -1,0 +1,34 @@
+spring:
+  config:
+    activate:
+      on-profile: rabbit
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    stream:
+      default-binder: rabbit
+      function:
+        definition: logConsumer;logProducer
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        logProducer-out-0:
+          destination: log-queue
+          content-type: application/json
+        logConsumer-in-0:
+          destination: log-queue
+          group: logging-svc
+          content-type: application/json
