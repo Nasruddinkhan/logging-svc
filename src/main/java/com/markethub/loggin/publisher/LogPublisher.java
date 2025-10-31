@@ -14,6 +14,6 @@ public class LogPublisher {
 
     public void publishLog(LogMessage message) {
         streamBridge.send("logProducer-out-0", message);
-       log.info("Published log: {} " ,  message);
+        log.info("Published log: {} " ,  message);
     }
 }
